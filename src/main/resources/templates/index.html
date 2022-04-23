@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -9,24 +9,21 @@
 <body>
     <div class="container">
         <h1>Add New Burger</h1>
-        <form method="POST" th:object="${burger}">
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name">
+        <form  th:action="@{/}" th:object="${burger}" method="post">
+        <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" th:field="*{name}">
             </div>
             <div class="mb-3">
-                <label for="price" class="form-label">Price</label>
-                <input type="number" class="form-control" id="price">
+                <label class="form-label">Price</label>
+                <input type="number" class="form-control" th:field="*{price}">
             </div>
-            <p>Please Check Ingredients to choose</p>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="chicken">
-                <label class="form-check-label" for="chicken">
-                    Chicken
-                </label>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <input type="text" class="form-control"  th:field="*{description}">
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button class="btn btn-primary">Submit</button>
         </form>
         <br />
         <br />

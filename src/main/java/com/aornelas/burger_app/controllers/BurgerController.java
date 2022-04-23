@@ -6,12 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
-@RequestMapping("/")
+@SuppressWarnings("unused")
 public class BurgerController {
 
     private JdbcBurgerRepositoryDaoImpl burgerRepo;
@@ -21,10 +20,21 @@ public class BurgerController {
         this.burgerRepo = burgerRepo;
     }
 
-    @GetMapping
+    @ModelAttribute(name = "burger")
+    public Burger burger() {
+        return new Burger();
+    }
+
+    @GetMapping("/")
     public String getBurgers(Model model) {
         model.addAttribute("burgers", burgerRepo.findAll());
         return "index";
+    }
+
+    @PostMapping("/")
+    public String createNewBurger(@ModelAttribute Burger burger)  {
+        burgerRepo.insertBurger(burger);
+        return "redirect:/";
     }
 
 }
