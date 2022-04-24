@@ -7,21 +7,25 @@
     <title>Burger App</title>
 </head>
 <body>
-    <h1>Edit Burger</h1>
-    <form  th:action="@{/}" th:object="${burger}" method="post">
-        <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" class="form-control" th:field="*{name}" th:text="${burger.name}">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Price</label>
-            <input type="number" step="0.01" class="form-control" th:field="*{price}" th:text="${burger.price}">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Description</label>
-            <input type="text" class="form-control"  th:field="*{description}" th:text="${burger.description}">
-        </div>
-        <button class="btn btn-primary">Submit</button>
-    </form>
+    <br/>
+    <div class="container">
+        <h1>Edit Burger</h1>
+<!--        @{{id}(id = ${burger.id})}-->
+        <form th:action="@{/editBurger/{id}(id=${burger.id})}" th:object="${burger}" method="post">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" th:field="*{name}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Price</label>
+                <input type="number" step="0.01" class="form-control" th:field="*{price}" >
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <input type="text" class="form-control"  th:field="*{description}" >
+            </div>
+            <button class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 </body>
 </html>

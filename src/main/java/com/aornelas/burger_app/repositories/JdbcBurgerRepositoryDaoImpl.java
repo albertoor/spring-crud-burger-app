@@ -3,15 +3,11 @@ package com.aornelas.burger_app.repositories;
 import com.aornelas.burger_app.domain.Burger;
 import com.aornelas.burger_app.interfaces.IBurgerDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
-import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import com.aornelas.burger_app.utils.BurgerRowMapper;
-
-import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +29,7 @@ public class JdbcBurgerRepositoryDaoImpl implements IBurgerDao {
     @Override
     public void insertBurger(Burger burger) {
         final String sql = "INSERT INTO burger(name, price, description) VALUES (:name, :price, :description)";
-        Map<String, Object> burgerMapRow = new HashMap<String, Object>();
+        Map<String, Object> burgerMapRow = new HashMap<>();
         burgerMapRow.put("name", burger.getName());
         burgerMapRow.put("price", burger.getPrice());
         burgerMapRow.put("description", burger.getDescription());
@@ -42,7 +38,14 @@ public class JdbcBurgerRepositoryDaoImpl implements IBurgerDao {
 
     @Override
     public void updateBurger(Burger burger) {
-
+        final String sql = "UPDATE burger SET name=:name, price=:price, description=:description WHERE id=:id";
+        System.out.println(burger.getId());
+        Map<String, Object> burgerMapRow = new HashMap<>();
+        burgerMapRow.put("name", burger.getName());
+        burgerMapRow.put("price", burger.getPrice());
+        burgerMapRow.put("description", burger.getDescription());
+        burgerMapRow.put("id", burger.getId());
+        template.execute(sql, burgerMapRow, (PreparedStatementCallback) ps -> ps.executeUpdate());
     }
 
     @Override

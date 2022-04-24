@@ -48,7 +48,9 @@
                 <td scope="row"><span th:text="${burger.name}">BURGER</span></td>
                 <td scope="row"><span th:text="${burger.price}">BURGER</span></td>
                 <td scope="row"><span th:text="${burger.description}">BURGER</span></td>
-                <td scope="row"><a class="btn btn-warning" href="${/burger.id}" >Edit</a></td>
+                <td scope="row">
+                    <a class="btn btn-warning" th:href="@{/editBurger/{id}(id = ${burger.id})}" >Edit</a>
+                </td>
                 <td scope="row">
                     <a type="submit" th:href="@{{id}(id = ${burger.id})}" class="btn btn-danger">Delete</a>
                 </td>

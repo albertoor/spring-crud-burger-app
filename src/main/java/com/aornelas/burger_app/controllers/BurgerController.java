@@ -46,9 +46,12 @@ public class BurgerController {
     @GetMapping("editBurger/{id}")
     public String getBurgerData(@PathVariable("id") Long id, Model model) {
         model.addAttribute("burger", burgerRepo.findById(id));
-        System.out.println(model);
         return "editBurger";
     }
 
-
+    @PostMapping("editBurger/{id}")
+    public String editBurger(@PathVariable("id") Long id, @ModelAttribute Burger burger) {
+        burgerRepo.updateBurger(burger);
+        return "redirect:/";
+    }
 }
