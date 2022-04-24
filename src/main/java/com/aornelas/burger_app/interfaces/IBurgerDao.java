@@ -11,8 +11,6 @@ public interface IBurgerDao {
 
     void updateBurger(Burger burger);
 
-    //void executeUpdateBurger(Burger burger);
-
-    void deleteBurger(Burger burger);
+    void deleteBurger(Long id);
 
 }

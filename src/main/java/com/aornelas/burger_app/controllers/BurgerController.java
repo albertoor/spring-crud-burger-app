@@ -25,15 +25,21 @@ public class BurgerController {
         return new Burger();
     }
 
-    @GetMapping("/")
+    @GetMapping
     public String getBurgers(Model model) {
         model.addAttribute("burgers", burgerRepo.findAll());
         return "index";
     }
 
-    @PostMapping("/")
+    @PostMapping
     public String createNewBurger(@ModelAttribute Burger burger)  {
         burgerRepo.insertBurger(burger);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "{id}")
+    public String deleteBurger(@PathVariable("id") Long id) {
+        burgerRepo.deleteBurger(id);
         return "redirect:/";
     }
 

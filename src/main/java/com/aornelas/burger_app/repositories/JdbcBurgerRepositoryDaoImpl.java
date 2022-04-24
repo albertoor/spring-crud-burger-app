@@ -11,6 +11,7 @@ import com.aornelas.burger_app.utils.BurgerRowMapper;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,13 +37,7 @@ public class JdbcBurgerRepositoryDaoImpl implements IBurgerDao {
         burgerMapRow.put("name", burger.getName());
         burgerMapRow.put("price", burger.getPrice());
         burgerMapRow.put("description", burger.getDescription());
-        template.execute(sql, burgerMapRow, new PreparedStatementCallback() {
-            @Override
-            public Object doInPreparedStatement(PreparedStatement ps)
-                throws SQLException, DataAccessException {
-                return ps.executeUpdate();
-            }
-        });
+        template.execute(sql, burgerMapRow, (PreparedStatementCallback) ps -> ps.executeUpdate());
     }
 
     @Override
@@ -51,7 +46,10 @@ public class JdbcBurgerRepositoryDaoImpl implements IBurgerDao {
     }
 
     @Override
-    public void deleteBurger(Burger burger) {
-
+    public void deleteBurger(Long id) {
+        final String sql = "DELETE FROM burger WHERE id=:id";
+        Map<String, Long> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        template.execute(sql, paramMap, (PreparedStatementCallback<Object>) ps -> ps.executeUpdate());
     }
 }
