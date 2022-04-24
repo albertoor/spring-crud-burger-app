@@ -8,4 +8,13 @@ public class Burger {
     private String name;
     private Double price;
     private String description;
+
+    public Burger(Long id, String name, Double price, String description) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+    }
+
+    public Burger(){}
 }

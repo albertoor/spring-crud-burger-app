@@ -13,4 +13,6 @@ public interface IBurgerDao {
 
     void deleteBurger(Long id);
 
+    Burger findById(Long id);
+
 }

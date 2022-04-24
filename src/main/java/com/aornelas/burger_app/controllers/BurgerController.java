@@ -43,4 +43,12 @@ public class BurgerController {
         return "redirect:/";
     }
 
+    @GetMapping("editBurger/{id}")
+    public String getBurgerData(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("burger", burgerRepo.findById(id));
+        System.out.println(model);
+        return "editBurger";
+    }
+
+
 }

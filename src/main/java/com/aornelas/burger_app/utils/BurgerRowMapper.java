@@ -11,6 +11,7 @@ public class BurgerRowMapper implements RowMapper<Burger> {
         Burger burger = new Burger();
         burger.setId(rs.getLong("id"));
         burger.setName(rs.getString("name"));
+        burger.setPrice(rs.getDouble("price"));
         burger.setDescription(rs.getString("description"));
         return burger;
     }

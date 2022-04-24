@@ -3,15 +3,15 @@ package com.aornelas.burger_app.repositories;
 import com.aornelas.burger_app.domain.Burger;
 import com.aornelas.burger_app.interfaces.IBurgerDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import com.aornelas.burger_app.utils.BurgerRowMapper;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Collections;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,5 +51,15 @@ public class JdbcBurgerRepositoryDaoImpl implements IBurgerDao {
         Map<String, Long> paramMap = new HashMap<>();
         paramMap.put("id", id);
         template.execute(sql, paramMap, (PreparedStatementCallback<Object>) ps -> ps.executeUpdate());
+    }
+
+    @Override
+    public Burger findById(Long id) {
+        final String sql = "SELECT * FROM burger WHERE id=:id";
+        Map<String, Long> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        return template.queryForObject(sql, new MapSqlParameterSource(
+            "id", id), new BurgerRowMapper()
+        );
     }
 }
